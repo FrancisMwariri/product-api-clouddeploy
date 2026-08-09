@@ -9,3 +9,4 @@ bcrypt
 aiofiles
 slowapi
 httpx
+python-multipart
