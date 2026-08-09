@@ -1,7 +1,10 @@
 [project]
-name = "product-api"
+name = "sendit-api"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "aiofiles>=25.1.0",
+    "httpx>=0.28.1",
+]
