@@ -100,7 +100,30 @@ def startup():
 # ============================================================
 # AUTHENTICATION
 # ============================================================
-
+import time
+import psutil
+import platform
+@app.get("/health")
+def health_check():
+    """Health check endpoint for monitoring."""
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "version": "1.0.0",
+        "uptime": time.time() - start_time,
+        "system": {
+            "platform": platform.platform(),
+            "python": platform.python_version()
+        }
+    }
+@app.get("/metrics")
+def get_metrics(current_user: User = Depends(get_current_admin)):
+    """Metrics endpoint for monitoring (admin only)."""
+    return {
+        "cpu_percent": psutil.cpu_percent(),
+        "memory_percent": psutil.virtual_memory().percent,
+        "disk_usage": psutil.disk_usage('/').percent
+    }
 # ============================================================
 # ROOT ENDPOINT
 # ============================================================
