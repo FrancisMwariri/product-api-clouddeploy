@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import os
 from typing import Optional
-
+from fastapi.responses import RedirectResponse
 import aiofiles
 from dotenv import load_dotenv
 from fastapi import (
@@ -104,14 +104,9 @@ def startup():
 # ============================================================
 # ROOT ENDPOINT
 # ============================================================
-
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def root():
-    return {
-        "message": "Welcome to SendIt API",
-        "version": "1.0.0",
-        "status": "Running"
-    }
+    return RedirectResponse(url="/docs")
 
 @app.post("/register", status_code=201)
 @limiter.limit("5/minute")
